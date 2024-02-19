@@ -1,0 +1,49 @@
+insert into Groups (Name) values ('Turquoise');
+insert into Groups (Name) values ('Indigo');
+insert into Groups (Name) values ('Violet');
+insert into Groups (Name) values ('Crimson');
+insert into Groups (Name) values ('Fuscia');
+
+
+
+Id int PRIMARY KEY IDENTITY,
+[Name] nvarchar(50) not null check(Name <> ''),
+Surname nvarchar(50) not null check(Surname <> ''),
+Phone char(15) null,
+Birthday date not null,
+AverageMark float not null check(AverageMark between 1 and 12), --check(AverageMark >= 1 AND AverageMark <= 12)
+IsDeptor bit not null default(0),
+Lesson int not null default(0) check(Lesson > 0),
+Fails int not null default(0) check(Fails > 0),
+Visiting as Lesson - Fails,
+
+check(Fails <= Lesson)
+
+
+
+
+insert into TeachersGroups (TeacherId, GroupId) values (1, 4);
+insert into TeachersGroups (TeacherId, GroupId) values (1, 4);
+insert into TeachersGroups (TeacherId, GroupId) values (3, 1);
+insert into TeachersGroups (TeacherId, GroupId) values (3, 3);
+insert into TeachersGroups (TeacherId, GroupId) values (5, 4);
+insert into TeachersGroups (TeacherId, GroupId) values (1, 5);
+insert into TeachersGroups (TeacherId, GroupId) values (1, 1);
+insert into TeachersGroups (TeacherId, GroupId) values (5, 4);
+insert into TeachersGroups (TeacherId, GroupId) values (5, 2);
+insert into TeachersGroups (TeacherId, GroupId) values (5, 4);
+insert into TeachersGroups (TeacherId, GroupId) values (2, 2);
+insert into TeachersGroups (TeacherId, GroupId) values (1, 5);
+insert into TeachersGroups (TeacherId, GroupId) values (1, 4);
+insert into TeachersGroups (TeacherId, GroupId) values (4, 5);
+insert into TeachersGroups (TeacherId, GroupId) values (5, 1);
+insert into TeachersGroups (TeacherId, GroupId) values (2, 5);
+insert into TeachersGroups (TeacherId, GroupId) values (5, 3);
+insert into TeachersGroups (TeacherId, GroupId) values (1, 4);
+insert into TeachersGroups (TeacherId, GroupId) values (3, 1);
+insert into TeachersGroups (TeacherId, GroupId) values (4, 4);
+insert into TeachersGroups (TeacherId, GroupId) values (2, 3);
+insert into TeachersGroups (TeacherId, GroupId) values (3, 5);
+insert into TeachersGroups (TeacherId, GroupId) values (5, 2);
+insert into TeachersGroups (TeacherId, GroupId) values (4, 4);
+insert into TeachersGroups (TeacherId, GroupId) values (4, 5);
