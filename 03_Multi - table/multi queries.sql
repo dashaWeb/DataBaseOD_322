@@ -116,3 +116,31 @@ select t.Name as 'Teacher', s.Name as 'Students' , g.Name as 'Group'
 from Students as s, Groups as g, Teachers as t, TeachersGroups as tg
 where s.GroupId = tg.GroupId and t.Id = tg.TeacherId and g.Id = tg.GroupId and t.Name = 'Tana'
 order by g.Name
+
+
+-- ті ж самі запити, але використовуючи JOIN
+
+-- отримуємо певних студентів разом з інформацією про його групу
+select st.Name, st.AverageMark, g.Name , st.GroupId, g.Id
+from Students as st join Groups as g on st.GroupId = g.Id
+where  AverageMark >= 7
+order by AverageMark desc -- впорядковуємо по колонці AverageMark у зворотньому порядку
+
+-- отримуємо ТОП-3 студентів певної групи з найкращою успішністю
+select top 3 st.Name, st.AverageMark, g.Name as 'Group Name'
+from Students as st join Groups as g on st.GroupId = g.Id
+where g.Name = 'Crimson'
+order by AverageMark desc
+
+-- отримуємо всіх викладачів та групи в яких вони викладають
+
+select t.Name, t.Phone, g.Name
+from Teachers as t join TeachersGroups as tg on t.Id = tg.TeacherId
+				join Groups as g on tg.GroupId = g.Id
+
+-- отримуємо всіх викладачів певного студента
+select s.Name, s.Surname, s.Email, g.Name as 'Group', t.Name as 'Teacher'
+from Students as s join Groups as g on s.GroupId = g.Id
+					join TeachersGroups as tg on tg.GroupId = g.Id
+					join Teachers as t on t.Id = tg.TeacherId
+where s.Name = 'Lory'
