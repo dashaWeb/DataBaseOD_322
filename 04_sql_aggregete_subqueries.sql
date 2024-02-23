@@ -77,7 +77,7 @@ select AverageMark, COUNT(Id) as NUMBERS
 from Students
 where AverageMark >= 7
 group by AverageMark
-having COUNT(Id)>= 1
+having COUNT(Id)> 1
 order by NUMBERS desc
 
 --having - фільтрує вже згруповані елементи
@@ -93,13 +93,18 @@ order by COUNT(s.Id)
 
 /*
 Subquery Operators
-- [NOT]EXISTS - повертає true, якзо запит повернув хоча б один запис
+- [NOT]EXISTS - повертає true, якщо запит повернув хоча б один запис
 - [> < >= <= <> =] ANY / SOME - повертає true якщо хоча б один запис відповідає умові
 - [> < >= <= <> =] ALL - повертає true якщо всі записи відповідають умові
 
 */
 
 select MAX(AverageMark) from Students
+
+select* from Students
+where AverageMark = any (
+	select MAX(AverageMark) from Students
+)
 
 -- показати виклдачів, які мають хоча б одну групу
 select *
@@ -119,7 +124,7 @@ from Groups
 where EXISTS (select Id from Students where AverageMark > 11 and GroupId = Groups.Id)
 
 
--- показати викладачів які мають хоча б одного студента з іменем
+-- показати викладачів які мають хоча б одного студента з іменем 'Ivan'
 select Name, Phone
 from Teachers
 where exists(
@@ -161,7 +166,7 @@ where Name = ANY(
 	where s.GroupId <> Students.GroupId
 )
 select * from Groups
--- показати всіх студентів в яких оцінка більша за оцінки всіх студентів групи Crimson
+-- показати всіх студентів в яких оцінка більша за оцінки всіх студентів групи 'Fuscia'
 select s.Name, s.Email, s.AverageMark
 from Students as s join Groups as g on s.GroupId = g.Id
 where AverageMark > ALL (
